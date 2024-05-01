@@ -27,6 +27,28 @@ class MyApp extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const Flexible(
+                    flex: 2,
+                    child: Text(
+                      'Some text here - even longer this time. This part may even wrap!',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  Container(
+                    height: 20,
+                    width: 20,
+                    color: Colors.blue,
+                  ),
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  Container(width: 20, height: 20, color: Colors.green),
+                ],
+              ),
               Container(
                 color: Colors.green,
                 child: const Padding(

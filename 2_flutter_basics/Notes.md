@@ -24,3 +24,7 @@
 ### Padding
 * Utility for spacing
 * Reccomended to use only within components rather than to space them
+
+### Expanded
+* Allocates as much space as possible
+* `flex: int` functions similar to css - priority
