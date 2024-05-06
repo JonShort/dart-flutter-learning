@@ -1,6 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
+const Map<String, String> assetMap = {
+  'movies': 'assets/movies.png',
+  'music': 'assets/music.png',
+  'sports': 'assets/sports.png',
+};
 
 void main() {
   runApp(const MyApp());
@@ -11,6 +15,31 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.sizeOf(context);
+    final isLarge = size.width > 600;
+
+    List<Widget> _buildChildren() {
+      return const [
+        QuestionItem(
+            category: 'Sports',
+            question:
+                'Who holds the record for the most goals scored in a single World Cup tournament?'),
+        SizedBox(
+          height: 10,
+        ),
+        QuestionItem(
+            category: 'Sports',
+            question:
+                'In tennis, who has won the most Grand Slam titles in the Open Era?'),
+        SizedBox(
+          height: 10,
+        ),
+        QuestionItem(
+            category: 'Movies',
+            question: 'In what year was Kill Bill volume 1 released?'),
+      ];
+    }
+
     return MaterialApp(
       theme: ThemeData(
           appBarTheme: const AppBarTheme(backgroundColor: Colors.amber)),
@@ -22,21 +51,13 @@ class MyApp extends StatelessWidget {
         ),
         body: Container(
           color: Colors.pink,
-          child: const Column(
-            children: [
-              QuestionItem(
-                  category: 'Sports',
-                  question:
-                      'Who holds the record for the most goals scored in a single World Cup tournament?'),
-              SizedBox(
-                height: 10,
-              ),
-              QuestionItem(
-                  category: 'Sports',
-                  question:
-                      'In tennis, who has won the most Grand Slam titles in the Open Era?')
-            ],
-          ),
+          child: isLarge
+              ? Row(
+                  children: _buildChildren(),
+                )
+              : Column(
+                  children: _buildChildren(),
+                ),
         ),
         floatingActionButton: const MyButton(),
       ),
@@ -51,20 +72,30 @@ class QuestionItem extends StatelessWidget {
   final String category;
   final String question;
 
+  get categoryAssetPath => assetMap[category.toLowerCase()];
+
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Flexible(
-          child: Text(category),
-        ),
-        const SizedBox(
-          width: 10,
-        ),
-        Flexible(
-          child: Text(question),
-        ),
-      ],
+    return Flexible(
+      child: Row(
+        children: [
+          SizedBox(
+              width: 50,
+              height: 50,
+              child: Image.asset(
+                categoryAssetPath,
+                fit: BoxFit.cover,
+              )),
+          const SizedBox(
+            width: 10,
+          ),
+          Flexible(
+            child: Text(
+              question,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
