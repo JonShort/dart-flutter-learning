@@ -28,3 +28,8 @@
 ### Expanded
 * Allocates as much space as possible
 * `flex: int` functions similar to css - priority
+
+### Local images
+* Need to be added to pubspec file
+* Reccomended to call the directory "assets"
+* Image widget has a few options e.g. network / file / asset
