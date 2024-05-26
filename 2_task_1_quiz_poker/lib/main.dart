@@ -10,6 +10,8 @@ void main() {
   runApp(const MyApp());
 }
 
+const double spacing = 30;
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -17,26 +19,93 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
     final isLarge = size.width > 600;
+    final pageScrollDirection = isLarge ? Axis.horizontal : Axis.vertical;
 
-    List<Widget> _buildChildren() {
+    List<Widget> buildChildren() {
       return const [
+        SizedBox(
+          height: spacing,
+          width: spacing,
+        ),
         QuestionItem(
             category: 'Sports',
             question:
                 'Who holds the record for the most goals scored in a single World Cup tournament?'),
         SizedBox(
-          height: 10,
+          height: spacing,
+          width: spacing,
         ),
         QuestionItem(
             category: 'Sports',
             question:
                 'In tennis, who has won the most Grand Slam titles in the Open Era?'),
         SizedBox(
-          height: 10,
+          height: spacing,
+          width: spacing,
+        ),
+        QuestionItem(
+            category: 'Sports',
+            question: 'Which football team won the 2022 world cup?'),
+        SizedBox(
+          height: spacing,
+          width: spacing,
+        ),
+        QuestionItem(
+            category: 'Sports',
+            question:
+                'In which year did Roger Federer win his first Wimbledon title?'),
+        SizedBox(
+          height: spacing,
+          width: spacing,
         ),
         QuestionItem(
             category: 'Movies',
             question: 'In what year was Kill Bill volume 1 released?'),
+        SizedBox(
+          height: spacing,
+          width: spacing,
+        ),
+        QuestionItem(
+            category: 'Movies',
+            question: 'Where is the film "La la land" set?'),
+        SizedBox(
+          height: spacing,
+          width: spacing,
+        ),
+        QuestionItem(
+            category: 'Movies', question: 'In what season is Die Hard set?'),
+        SizedBox(
+          height: spacing,
+          width: spacing,
+        ),
+        QuestionItem(
+            category: 'Movies',
+            question: 'What was Quentin Tarantino\'s first major film?'),
+        SizedBox(
+          height: spacing,
+          width: spacing,
+        ),
+        QuestionItem(
+            category: 'Music',
+            question: 'Who sang "hit me baby one more time"?'),
+        SizedBox(
+          height: spacing,
+          width: spacing,
+        ),
+        QuestionItem(
+            category: 'Music',
+            question: 'Which band created the song "Enter Sandman"?'),
+        SizedBox(
+          height: spacing,
+          width: spacing,
+        ),
+        QuestionItem(
+            category: 'Music',
+            question: 'Miley Cyrus is daughter to which country music star?'),
+        SizedBox(
+          height: spacing,
+          width: spacing,
+        ),
       ];
     }
 
@@ -51,13 +120,15 @@ class MyApp extends StatelessWidget {
         ),
         body: Container(
           color: Colors.pink,
-          child: isLarge
-              ? Row(
-                  children: _buildChildren(),
-                )
-              : Column(
-                  children: _buildChildren(),
-                ),
+          height: MediaQuery.of(context).size.height,
+          child: SingleChildScrollView(
+            scrollDirection: pageScrollDirection,
+            child: isLarge
+                ? Row(children: buildChildren())
+                : Column(
+                    children: buildChildren(),
+                  ),
+          ),
         ),
         floatingActionButton: const MyButton(),
       ),
@@ -76,25 +147,31 @@ class QuestionItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Flexible(
-      child: Row(
-        children: [
-          SizedBox(
-              width: 50,
-              height: 50,
-              child: Image.asset(
-                categoryAssetPath,
-                fit: BoxFit.cover,
-              )),
-          const SizedBox(
-            width: 10,
-          ),
-          Flexible(
-            child: Text(
-              question,
+    final size = MediaQuery.of(context).size;
+    return Center(
+      child: SizedBox(
+        height: 200,
+        width: 300,
+        child: Row(
+          children: [
+            SizedBox(
+                width: 50,
+                height: 50,
+                child: Image.asset(
+                  categoryAssetPath,
+                  fit: BoxFit.cover,
+                )),
+            const SizedBox(
+              width: 10,
             ),
-          ),
-        ],
+            Flexible(
+              child: Text(
+                question,
+                style: const TextStyle(fontSize: 18),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
