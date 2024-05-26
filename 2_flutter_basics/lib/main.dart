@@ -116,11 +116,28 @@ class MyApp extends StatelessWidget {
                 const SizedBox(
                   height: 40,
                 ),
+                const MediaQueryExample(),
+                const SizedBox(
+                  height: 40,
+                ),
                 Container(
-                    height: 400,
-                    width: 100,
-                    color: Colors.green,
-                    child: const Text('placeholder')),
+                  color: Colors.yellow,
+                  height: 300,
+                  width: 300,
+                  child: LayoutBuilder(builder: (context, constraints) {
+                    return Center(
+                      child: Container(
+                          height: constraints.maxHeight / 2,
+                          width: constraints.maxWidth / 2,
+                          color: Colors.green,
+                          child: const Center(
+                              child: Text('LayoutBuilder example'))),
+                    );
+                  }),
+                ),
+                const SizedBox(
+                  height: 40,
+                ),
               ],
             ),
           ),
@@ -131,5 +148,21 @@ class MyApp extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class MediaQueryExample extends StatelessWidget {
+  const MediaQueryExample({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return Container(
+        height: size.height / 5,
+        width: size.width / 2,
+        color: Colors.green,
+        child: const Center(child: Text('MediaQuery Example')));
   }
 }
